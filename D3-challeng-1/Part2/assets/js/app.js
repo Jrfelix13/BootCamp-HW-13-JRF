@@ -91,7 +91,14 @@ function renderYCircles(circlesGroup, newYScale, chosenYAxis) {
 
 // function used for updating circles labels on X-axis with a transition to
 // new circles
+function renderXLabels(circleText, newXScale, chosenXAxis) {
 
+    circleText.transition()
+        .duration(1000)
+        .attr("x", d => newXScale(d[chosenXAxis]));
+
+    return circleText;
+}
 
 // function used for updating circles labels on Y-axis with a transition to
 // new circles
