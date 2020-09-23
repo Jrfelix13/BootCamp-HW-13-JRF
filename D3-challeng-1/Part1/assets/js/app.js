@@ -14,7 +14,13 @@ var width = svgWidth - margin.left - margin.right;
 var height = svgHeight - margin.top - margin.bottom;
 
 // Creating the bolck os svg where our chart will end on. 
+var svg = d3.select("#scatter")
+    .append("svg")
+    .attr("width", svgWidth)
+    .attr("height", svgHeight);
 
+var chartGroup = svg.append("g")
+    .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 // Import Data
 d3.csv("assets/data/data.csv").then(function(censusData) {
