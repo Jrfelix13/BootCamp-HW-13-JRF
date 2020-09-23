@@ -47,15 +47,7 @@ function yScale(censusData, ChosenYAxis) {
     return yLinearScale;
 }
 // function used for updating xAxis var upon click on axis label
-function renderXAxes(newXScale, xAxis) {
-    var bottomAxis = d3.axisBottom(newXScale);
 
-    xAxis.transition()
-        .duration(1000)
-        .call(bottomAxis);
-
-    return xAxis;
-}
 
 function renderYAxes(newYScale, yAxis) {
     var sideAxis = d3.axisLeft(newYScale);
