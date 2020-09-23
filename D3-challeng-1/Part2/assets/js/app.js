@@ -9,20 +9,11 @@ var margin = {
     left: 100
 };
 
-v
+var width = svgWidth - margin.left - margin.right;
+var height = svgHeight - margin.top - margin.bottom;
 
 // Create an SVG wrapper, append an SVG group that will hold our chart, and shift the latter by left and top margins.
-var svg = d3.select("#scatter")
-    .append("svg")
-    .attr("width", svgWidth)
-    .attr("height", svgHeight);
 
-var chartGroup = svg.append("g")
-    .attr("transform", `translate(${margin.left}, ${margin.top})`);
-
-// Initial Params
-var chosenXAxis = "House Income (Median)";
-var chosenYAxis = "Lacks Healthcare (%)";
 
 // function used for updating x-scale var upon click on axis label
 function xScale(censusData, chosenXAxis) {
