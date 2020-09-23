@@ -45,7 +45,7 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
         data.smokesLow = +data.smokesLow;
         data.smokesHigh = +data.smokesHigh;
     });
-    // Step 2: Create scale functions
+    // Step 2: Make the scale functions
     // ==============================
     var xScale = d3.scaleLinear()
         .domain([8, d3.max(censusData, d => d.poverty) + 2])
@@ -55,12 +55,12 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
         .domain([2, d3.max(censusData, d => d.healthcare) + 3])
         .range([height, 0]);
 
-    // Step 3: Create axis functions
+    // Step 3: Make the axis functions
     // ==============================
     var bottomAxis = d3.axisBottom(xScale);
     var sideAxis = d3.axisLeft(yScale);
 
-    // Step 4: Append Axes to the chart
+    // Step 4: Anex axes to the chart
     // ==============================
     chartGroup.append("g")
         .attr("transform", `translate(0, ${height})`)
@@ -78,15 +78,15 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
         .attr("cx", d => xScale(d.poverty))
         .attr("cy", d => yScale(d.healthcare))
         .attr("r", "15")
-        .attr("fill", "blue")
+        .attr("fill", "green")
         .attr("opacity", ".5");
 
     // Step 6: Initialize tool tip
     // ==============================
     // Add state labels to the points
-    var circleLabels = chartGroup.selectAll(null).data(censusData).enter().append("text");
+    var circleText = chartGroup.selectAll(null).data(censusData).enter().append("text");
 
-    circleLabels
+    circleText
         .attr("x", function(d) {
             return xScale(d.poverty);
         })
