@@ -57,7 +57,15 @@ function renderXAxes(newXScale, xAxis) {
     return xAxis;
 }
 
+function renderYAxes(newYScale, yAxis) {
+    var sideAxis = d3.axisLeft(newYScale);
 
+    yAxis.transition()
+        .duration(1000)
+        .call(sideAxis);
+
+    return yAxis;
+}
 
 // function used for updating circles group on X -axis with a transition to
 // new circles
