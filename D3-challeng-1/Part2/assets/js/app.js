@@ -36,8 +36,16 @@ function xScale(censusData, chosenXAxis) {
     return xLinearScale;
 
 }
+function yScale(censusData, ChosenYAxis) {
+    // create y scale
+    var yLinearScale = d3.scaleLinear()
+        .domain([d3.min(censusData, d => d[ChosenYAxis] * 0.8),
+            d3.max(censusData, d => d[ChosenYAxis] * 1.2)
+        ])
+        .range([height, 0]);
 
-
+    return yLinearScale;
+}
 // function used for updating xAxis var upon click on axis label
 function renderXAxes(newXScale, xAxis) {
     var bottomAxis = d3.axisBottom(newXScale);
