@@ -9,10 +9,11 @@ var margin = {
     left: 100
 };
 
+// Adjust to fit on the bolck
 var width = svgWidth - margin.left - margin.right;
 var height = svgHeight - margin.top - margin.bottom;
 
-// Create an SVG wrapper, append an SVG group that will hold our chart, and shift the latter by left and top margins.
+// Creating the bolck os svg where our chart will end on. 
 var svg = d3.select("#scatter")
     .append("svg")
     .attr("width", svgWidth)
@@ -24,7 +25,7 @@ var chartGroup = svg.append("g")
 // Import Data
 d3.csv("assets/data/data.csv").then(function(censusData) {
 
-    // Step 1: Parse Data/Cast as numbers
+    // Step 1: Extract the data and parse the data of the file 
     // ==============================
     censusData.forEach(function(data) {
         data.id = +data.id;
@@ -46,18 +47,18 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
     });
     // Step 2: Create scale functions
     // ==============================
-    var xLinearScale = d3.scaleLinear()
+    var xScale = d3.scaleLinear()
         .domain([8, d3.max(censusData, d => d.poverty) + 2])
         .range([0, width]);
 
-    var yLinearScale = d3.scaleLinear()
+    var yScale = d3.scaleLinear()
         .domain([2, d3.max(censusData, d => d.healthcare) + 3])
         .range([height, 0]);
 
     // Step 3: Create axis functions
     // ==============================
-    var bottomAxis = d3.axisBottom(xLinearScale);
-    var leftAxis = d3.axisLeft(yLinearScale);
+    var bottomAxis = d3.axisBottom(xScale);
+    var sideAxis = d3.axisLeft(yScale);
 
     // Step 4: Append Axes to the chart
     // ==============================
@@ -66,7 +67,7 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
         .call(bottomAxis);
 
     chartGroup.append("g")
-        .call(leftAxis);
+        .call(sideAxis);
 
     // Step 5: Create Circles
     // ==============================
@@ -74,8 +75,8 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
         .data(censusData)
         .enter()
         .append("circle")
-        .attr("cx", d => xLinearScale(d.poverty))
-        .attr("cy", d => yLinearScale(d.healthcare))
+        .attr("cx", d => xScale(d.poverty))
+        .attr("cy", d => yScale(d.healthcare))
         .attr("r", "15")
         .attr("fill", "blue")
         .attr("opacity", ".5");
@@ -87,10 +88,10 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
 
     circleLabels
         .attr("x", function(d) {
-            return xLinearScale(d.poverty);
+            return xScale(d.poverty);
         })
         .attr("y", function(d) {
-            return yLinearScale(d.healthcare);
+            return yScale(d.healthcare);
         })
         .text(function(d) {
             return d.abbr;
