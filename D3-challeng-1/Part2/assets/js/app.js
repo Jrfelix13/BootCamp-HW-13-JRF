@@ -80,14 +80,6 @@ function renderXCircles(circlesGroup, newXScale, chosenXAxis) {
 
 // function used for updating circles group on Y-axis with a transition to
 // new circles
-function renderYCircles(circlesGroup, newYScale, chosenYAxis) {
-
-    circlesGroup.transition()
-        .duration(1000)
-        .attr("cy", d => newYScale(d[chosenYAxis]));
-
-    return circlesGroup;
-}
 
 // function used for updating circles labels on X-axis with a transition to
 // new circles
